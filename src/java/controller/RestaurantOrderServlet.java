@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RestaurantOrderServlet", urlPatterns = {"/RestaurantOrderServlet"})
 public class RestaurantOrderServlet extends HttpServlet {
+
     private static final String destination = "/billDetailPage.jsp";
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,18 +37,16 @@ public class RestaurantOrderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-            System.out.println("made it");
-            System.out.println("destination: "+destination);
-            
-            request.setAttribute("name",2);
-            
-            RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(destination);
-                dispatcher.forward(request, response);
-        } finally {            
-            out.close();
-        }
+
+        System.out.println("made it");
+        System.out.println("destination: " + destination);
+
+        request.setAttribute("name", 2);
+
+        RequestDispatcher dispatcher =
+                getServletContext().getRequestDispatcher(destination);
+        dispatcher.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
