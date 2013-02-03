@@ -6,13 +6,14 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.RestaurantCalculator;
 
 /**
  *
@@ -38,18 +39,42 @@ public class RestaurantOrderServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        List itemQtyList = new ArrayList();
+        ArrayList itemQtys= new ArrayList();
         
-        itemQtyList.add(request.getParameter("steakQty"));
-        itemQtyList.add(request.getParameter("lobsterQty"));
-        itemQtyList.add(request.getParameter("beerQty"));
-        itemQtyList.add(request.getParameter("saladQty"));
         
-        for(Object item:itemQtyList){
-            System.out.println(item);
-        }
+        String steakQty=(String)request.getParameter("steakQty");
+        String lobsterQty=(String)request.getParameter("lobsterQty");
+        String beerQty=(String)request.getParameter("beerQty");
+        String saladQty=(String)request.getParameter("saladQty");
+        
+        itemQtys.add(steakQty);
+        itemQtys.add(lobsterQty);
+        itemQtys.add(beerQty);
+        itemQtys.add(saladQty);
+        
+        // call method pass in list.  Retrieve bill object
+        RestaurantCalculator rc = new RestaurantCalculator();
         
         //find prices for these items
+//        double steakPrice=rc.getSteakPrice(steakQty);
+//        double lobsterPrice=rc.getLobsterPrice(lobsterQty);
+//        double beerPrice=rc.getBeerPrice(beerQty);
+//        double saladPrice=rc.getSaladPrice(saladQty);
+//        System.out.println(steakPrice);
+//        System.out.println(lobsterPrice);
+//        System.out.println(beerPrice);
+//        System.out.println(saladPrice);
+        
+        request.setAttribute("steakPrice",rc.getSteakPrice(steakQty));
+        request.setAttribute("lobsterPrice",rc.getLobsterPrice(lobsterQty));
+        request.setAttribute("beerPrice",rc.getBeerPrice(beerQty));
+        request.setAttribute("saladPrice",rc.getSaladPrice(saladQty));
+        request.setAttribute("subtotal",rc.getSubtotal());
+        request.setAttribute("tax", rc.getTax());
+        request.setAttribute("total", rc.getTotal());
+        request.setAttribute("suggestedTip", rc.getSuggestedTip());
+        
+        
 
         RequestDispatcher dispatcher =
                 getServletContext().getRequestDispatcher(destination);

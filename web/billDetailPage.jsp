@@ -13,6 +13,74 @@
     </head>
     <body>
         <h1>Bill Detail Page</h1>
-        
+
+        <table border="0">
+            <tr>
+                <td>Item</td>
+                <td>Qty</td>
+                <td>Price</td>
+            </tr>
+            <tr>
+                <td>Steak</td>
+                <td><%
+                out.print(request.getParameter("steakQty"));
+                    %></td>
+                <td><%
+                out.print(request.getAttribute("steakPrice"));
+                    %></td>
+            </tr>
+            <tr>
+                <td>Lobster</td>
+                <td>
+                    <%
+                    out.print(request.getParameter("lobsterQty"));
+                    %></td>
+                <td><%
+                out.print(request.getAttribute("lobsterPrice"));
+                    %></td>
+            </tr>
+            <tr>
+                <td>Beer</td>
+                <td><%
+                out.print(request.getParameter("beerQty"));
+                %></td>
+                <td><%
+                out.print(request.getAttribute("beerPrice"));
+                %></td>
+            </tr>
+            <tr>
+                <td>Salad</td>
+                <td><%
+                out.print(request.getParameter("saladQty"));
+                %></td>
+                <td><%out.print(request.getAttribute("saladPrice"));
+                %></td>
+            </tr>
+            <tr>
+                <td>Subtotal</td>
+                <td></td>
+                <td><%out.print(request.getAttribute("subtotal"));
+                %></td>
+            </tr>
+            <tr>
+                <td>Tax</td>
+                <td></td>
+                <td><%out.print(request.getAttribute("tax"));
+                %></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td><%out.print(request.getAttribute("total"));
+                %></td>
+            </tr>
+            <tr>
+                <td>Suggested Tip</td>
+                <td></td>
+                <td><%out.print(request.getAttribute("suggestedTip"));
+                %></td>
+            </tr>
+        </table>
+
     </body>
 </html>

@@ -43,6 +43,7 @@
                     <td>Salad</td>
                     <td><input type="text" name="saladQty" size="5"></td>
                 </tr>
+                
             </table>
 
 
