@@ -55,15 +55,6 @@ public class RestaurantOrderServlet extends HttpServlet {
         // call method pass in list.  Retrieve bill object
         RestaurantCalculator rc = new RestaurantCalculator();
         
-        //find prices for these items
-//        double steakPrice=rc.getSteakPrice(steakQty);
-//        double lobsterPrice=rc.getLobsterPrice(lobsterQty);
-//        double beerPrice=rc.getBeerPrice(beerQty);
-//        double saladPrice=rc.getSaladPrice(saladQty);
-//        System.out.println(steakPrice);
-//        System.out.println(lobsterPrice);
-//        System.out.println(beerPrice);
-//        System.out.println(saladPrice);
         
         request.setAttribute("steakPrice",rc.getSteakPrice(steakQty));
         request.setAttribute("lobsterPrice",rc.getLobsterPrice(lobsterQty));
