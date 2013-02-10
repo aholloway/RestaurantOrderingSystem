@@ -6,6 +6,7 @@ package service;
  * @author Drew
  */
 public class RestaurantCalculator {
+    //has a DAO to save to
     double subtotal;
     
     public RestaurantCalculator(){
@@ -60,4 +61,6 @@ public class RestaurantCalculator {
     public double getSuggestedTip() {
         return .2*getTotal();
     }
+    
+    
 }
