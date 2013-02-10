@@ -29,10 +29,12 @@ public class MenuItem implements ItemStrategy {
         this.itemQuantity = itemQuantity;
     }
 
+    @Override
     public int getItemQuantity() {
         return itemQuantity;
     }
 
+    @Override
     public void setItemQuantity(int itemQuantity) {
         this.itemQuantity = itemQuantity;
     }

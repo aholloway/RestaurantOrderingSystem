@@ -6,7 +6,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +18,8 @@ import service.RestaurantCalculator;
  *
  * @author Drew
  */
-@WebServlet(name = "RestaurantOrderServlet", urlPatterns = {"/RestaurantOrderServlet"})
-public class RestaurantOrderServlet extends HttpServlet {
+@WebServlet(name = "RestaurantOrderServlet1", urlPatterns = {"/RestaurantOrderServlet1"})
+public class RestaurantOrderServlet1 extends HttpServlet {
 
     private static final String destination = "/billDetailPage.jsp";
 
@@ -40,10 +39,12 @@ public class RestaurantOrderServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         
-        String steakQty=(String)request.getParameter("steakQty");
-        String lobsterQty=(String)request.getParameter("lobsterQty");
-        String beerQty=(String)request.getParameter("beerQty");
-        String saladQty=(String)request.getParameter("saladQty");
+        
+        
+        String steakQty=(String)request.getParameter("Steak");
+        String lobsterQty=(String)request.getParameter("Lobster");
+        String beerQty=(String)request.getParameter("Beer");
+        String saladQty=(String)request.getParameter("Salad");
         
         
         // call method pass in list.  Retrieve bill object

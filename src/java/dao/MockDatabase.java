@@ -1,38 +1,26 @@
 package dao;
 
 import java.util.*;
-import service.*;
+import service.ItemStrategy;
+import service.MenuItem;
 
 /**
- * this is the mock DB for the restaurant ordering system. This is based on (and
- * adapted from) the mock DB which I used initially for my parking garage last
- * semester.
  *
- * Unfortunately it only persists the information as long as the items exist in
- * memory.
- *
- *
- * @Drew Holloway
+ * @author Drew
  */
-public class MockDatabase {
+public class MockDatabase implements IOrderDAO {
 
-    private final List<ItemStrategy> menuItems;
-    private Map<String, List<ItemStrategy>> transactions;
-    private String currentId;
+    private Map<Integer, List<MenuItem>> transactions;
+    private int currentId;
 
     public MockDatabase() {
-
-        //create the list of menuItems
-        menuItems = getMenuItems();
-
-
-        transactions = new TreeMap<String, List<ItemStrategy>>();
-        currentId = "10000";
+        transactions = new TreeMap<Integer, List<MenuItem>>();
+        currentId = 10000;
     }
 
-    public final List<ItemStrategy> getMenuItems() {
-
-        List menuItemList = new ArrayList<ItemStrategy>();
+    @Override
+    public List<MenuItem> getCurrentMenuChoices() throws RuntimeException {
+        List menuItemList = new ArrayList<MenuItem>();
 
         menuItemList.add(new MenuItem("00001", "Steak", 19.95, "Juicy Tender Steak", 0));
         menuItemList.add(new MenuItem("00002", "Lobster", 23.95, "Juicy Tender Lobster", 0));
@@ -42,51 +30,28 @@ public class MockDatabase {
         return menuItemList;
     }
 
-    public final List<ItemStrategy> getTransactionById(String id) {
+    @Override
+    public void saveOrder(List<MenuItem> orderList) throws RuntimeException {
+        
+        currentId++;
+
+        transactions.put(currentId, orderList);
+    }
+
+    public final List<MenuItem> getTransactionById(int id) {
         return transactions.get(id);
     }
-
-    public final void addTransaction(List<ItemStrategy> newMenuItems) {
-
-        int intCurrentId = Integer.parseInt(currentId);
-
-        intCurrentId++;
-        currentId = String.valueOf(intCurrentId);
-
-        transactions.put(currentId, newMenuItems);
-    }
-
-    public final String getCurrentId() {
+    
+    public final int getCurrentId() {
         return currentId;
     }
-
-    public final double getSubtotal() {
-        double subtotal = 0;
-        ArrayList<ItemStrategy> itemList = getTransactionList();
-        //loop over List
-        for (ItemStrategy i : itemList) {
-            subtotal += i.getItemPrice() * i.getItemQuantity();
-        }
-        return subtotal;
-    }
-
-    public final void removeTransaction(String id) {
-        transactions.remove(id);
-    }
-
-    private ArrayList<ItemStrategy> getTransactionList() {
-
-        //it wouldn't let me add the <ItemStrategy> tag
-        return new ArrayList(transactions.values());
-    }
-
+    
     public static void main(String[] args) {
-        //test it
+        
+        
+         MockDatabase mockDB = new MockDatabase();
 
-
-        MockDatabase mockDB = new MockDatabase();
-
-        List<ItemStrategy> menuList = mockDB.getMenuItems();
+        List<MenuItem> menuList = mockDB.getCurrentMenuChoices();
 
         for (ItemStrategy menuItem : menuList) {
             System.out.println(menuItem);
@@ -96,33 +61,22 @@ public class MockDatabase {
         ItemStrategy steak = menuList.get(0);
         steak.setItemQuantity(3);
 
+        mockDB.saveOrder(menuList);
         
-        
-        mockDB.addTransaction(menuList);
-        
-        //begin new order
-        menuList = mockDB.getMenuItems();
+        menuList = mockDB.getCurrentMenuChoices();
         menuList.get(0).setItemQuantity(2);
 
-        mockDB.addTransaction(menuList);
+        mockDB.saveOrder(menuList);
 
         //print out list
         System.out.println("Transaction List:");
-        List<ItemStrategy> transactionList = mockDB.getTransactionList();
+        int currentId= mockDB.getCurrentId();
+        System.out.println(currentId);
 
-        System.out.println(transactionList);
-//        for (ItemStrategy transaction : transactionList) {
-//            System.out.println(transaction.getClass());
-//            //System.out.println(transaction);
-//
-//        }
+        List<MenuItem> transaction1 = mockDB.getTransactionById(currentId-1);
+        List<MenuItem> transaction2 = mockDB.getTransactionById(currentId);
 
-
-        // get itemList
-
-
-
-
-
+        System.out.println(transaction1);
+        System.out.println(transaction2);
     }
 }
