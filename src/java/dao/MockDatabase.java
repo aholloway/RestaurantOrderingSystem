@@ -16,7 +16,7 @@ import service.*;
  */
 public class MockDatabase {
     
-    private final List<MenuItem> menuItems;
+    private final List<ItemStrategy> menuItems;
 
     private Map<String,List<ItemStrategy>> transactions;
     
@@ -32,7 +32,7 @@ public class MockDatabase {
         currentId = "10000";
     }
 
-    public final List<MenuItem> getMenuItems(){
+    public final List<ItemStrategy> getMenuItems(){
         
         List menuItemList = new ArrayList<ItemStrategy>();
         
@@ -91,24 +91,34 @@ public class MockDatabase {
         //test it
         
         //get list of menu items
-        List<MenuItem> menuList = new ArrayList<MenuItem>();
+        List<ItemStrategy> menuList = new ArrayList<ItemStrategy>();
         
         MockDatabase mockDB = new MockDatabase();
         
         menuList=mockDB.getMenuItems();
         
-        for (MenuItem menuItem:menuList){
+        for (ItemStrategy menuItem:menuList){
             System.out.println(menuItem);
         }
         
         //add a transaction
-        MenuItem steak = menuList.get(0);
+        ItemStrategy steak = menuList.get(0);
         steak.setItemQuantity(3);
+        
+        mockDB.addTransaction(menuList);
         menuList.get(0).setItemQuantity(2);
         
-        
+        mockDB.addTransaction(menuList);
         
         //print out list
+        System.out.println("Transaction List:");
+        List<ItemStrategy> transactionList = mockDB.getTransactionList();
+        
+        System.out.println(transactionList);
+//        for (ItemStrategy transaction:transactionList){
+//            System.out.println(transaction);
+//        }
+        
         
         // get itemList
         
