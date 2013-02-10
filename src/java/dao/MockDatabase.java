@@ -96,7 +96,12 @@ public class MockDatabase {
         ItemStrategy steak = menuList.get(0);
         steak.setItemQuantity(3);
 
+        
+        
         mockDB.addTransaction(menuList);
+        
+        //begin new order
+        menuList = mockDB.getMenuItems();
         menuList.get(0).setItemQuantity(2);
 
         mockDB.addTransaction(menuList);
