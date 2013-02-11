@@ -27,10 +27,23 @@
                 <td>Quantity</td>
                 <td>Price</td>
             </tr>
+            <%
+                Object objCurrentOrder = request.getParameter("currentOrder");
+                List<MenuItem> lstCurrentOrder = (List<MenuItem>) objCurrentOrder;
+                for (MenuItem m : lstCurrentOrder) {
+            %>
+
+            <tr>
+                <td><%= m.getItemName()%></td>
+                <td><%= nf.format(m.getItemPrice())%></td>
+                <td><%= nf.format(m.getItemPrice() * m.getItemQuantity())%></td>
+            </tr>
+            <%
+                }
+            %>
             <tr>
                 <td>Steak</td>
-                <td><%
-                    out.print(request.getParameter("steakQty"));
+                <td><%                    out.print(request.getParameter("steakQty"));
                     %></td>
                 <td><%
                     out.print(nf.format(request.getAttribute("steakPrice")));
@@ -40,7 +53,7 @@
                 <td>Lobster</td>
                 <td>
                     <%
-                    out.print(request.getParameter("lobsterQty"));
+                        out.print(request.getParameter("lobsterQty"));
                     %></td>
                 <td><%
                     out.print(nf.format(request.getAttribute("lobsterPrice")));

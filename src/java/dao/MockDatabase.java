@@ -12,10 +12,12 @@ public class MockDatabase implements IOrderDAO {
 
     private Map<Integer, List<MenuItem>> transactions;
     private int currentId;
+    private final int BEGINNING_ID;
 
     public MockDatabase() {
         transactions = new TreeMap<Integer, List<MenuItem>>();
-        currentId = 10000;
+        BEGINNING_ID=10000;
+        currentId = BEGINNING_ID;
     }
 
     @Override
@@ -38,10 +40,17 @@ public class MockDatabase implements IOrderDAO {
         transactions.put(currentId, orderList);
     }
 
+    @Override
+    public final List<MenuItem> getCurrentTransaction() {
+        return transactions.get(currentId);
+    }
+    
+    @Override
     public final List<MenuItem> getTransactionById(int id) {
         return transactions.get(id);
     }
     
+    @Override
     public final int getCurrentId() {
         return currentId;
     }

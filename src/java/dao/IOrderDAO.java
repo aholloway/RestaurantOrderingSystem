@@ -4,10 +4,9 @@ import java.util.List;
 import service.MenuItem;
 
 /**
- * The general contract for all versions of OrderDAO classes.
- * Copied from Jim's code.  This interface is simple and does what needs
- * to get done.
- * 
+ * The general contract for all versions of OrderDAO classes. Copied from Jim's
+ * code. This interface is simple and does what needs to get done.
+ *
  * @author jlombardo
  */
 public interface IOrderDAO {
@@ -16,4 +15,9 @@ public interface IOrderDAO {
 
     void saveOrder(List<MenuItem> orderList) throws RuntimeException;
 
+    public List<MenuItem> getCurrentTransaction();
+
+    public List<MenuItem> getTransactionById(int id);
+
+    public int getCurrentId();
 }

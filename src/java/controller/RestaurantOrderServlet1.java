@@ -4,15 +4,16 @@
  */
 package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.RestaurantCalculator;
+import service.MenuItem;
+import service.RestaurantService;
 
 /**
  *
@@ -21,7 +22,7 @@ import service.RestaurantCalculator;
 @WebServlet(name = "RestaurantOrderServlet1", urlPatterns = {"/RestaurantOrderServlet1"})
 public class RestaurantOrderServlet1 extends HttpServlet {
 
-    private static final String destination = "/billDetailPage.jsp";
+    private static final String destination = "/billDetailPage_1.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -38,27 +39,44 @@ public class RestaurantOrderServlet1 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        //get all the request parameters
+        RestaurantService rs = new RestaurantService();
+        List<MenuItem> currentMenuChoices = rs.getCurrentMenuChoices();
+        List<MenuItem> currentOrder = new ArrayList<MenuItem>();
+        String quantity;
+        boolean add;
+        
+         //get quantities from the request and put into the current order
+        for (MenuItem m:currentMenuChoices){
+            quantity= (String)request.getParameter(m.getItemName());
+            if (!quantity.isEmpty()){
+                m.setItemQuantity(Integer.parseInt(quantity));
+                add = currentOrder.add(m);
+            }
+        }
+        
+        rs.saveOrder(currentOrder);
+        request.setAttribute("currentOrder", currentOrder);
         
         
-        
-        String steakQty=(String)request.getParameter("Steak");
-        String lobsterQty=(String)request.getParameter("Lobster");
-        String beerQty=(String)request.getParameter("Beer");
-        String saladQty=(String)request.getParameter("Salad");
-        
-        
-        // call method pass in list.  Retrieve bill object
-        RestaurantCalculator rc = new RestaurantCalculator();
-        
-        
-        request.setAttribute("steakPrice",rc.getSteakPrice(steakQty));
-        request.setAttribute("lobsterPrice",rc.getLobsterPrice(lobsterQty));
-        request.setAttribute("beerPrice",rc.getBeerPrice(beerQty));
-        request.setAttribute("saladPrice",rc.getSaladPrice(saladQty));
-        request.setAttribute("subtotal",rc.getSubtotal());
-        request.setAttribute("tax", rc.getTax());
-        request.setAttribute("total", rc.getTotal());
-        request.setAttribute("suggestedTip", rc.getSuggestedTip());
+//        String steakQty=(String)request.getParameter("Steak");
+//        String lobsterQty=(String)request.getParameter("Lobster");
+//        String beerQty=(String)request.getParameter("Beer");
+//        String saladQty=(String)request.getParameter("Salad");
+//        
+//        
+//        // call method pass in list.  Retrieve bill object
+//        RestaurantCalculator rc = new RestaurantCalculator();
+//        
+//        
+//        request.setAttribute("steakPrice",rc.getSteakPrice(steakQty));
+//        request.setAttribute("lobsterPrice",rc.getLobsterPrice(lobsterQty));
+//        request.setAttribute("beerPrice",rc.getBeerPrice(beerQty));
+//        request.setAttribute("saladPrice",rc.getSaladPrice(saladQty));
+        request.setAttribute("subtotal",rs.getSubtotal());
+        request.setAttribute("tax", rs.getTax());
+        request.setAttribute("total", rs.getTotal());
+        request.setAttribute("suggestedTip", rs.getSuggestedTip());
         
         
 

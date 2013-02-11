@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    IOrderDAO mockDB = new MockDatabase();
+    RestaurantService mockDB = new RestaurantService();
     List<MenuItem> menuChoices = mockDB.getCurrentMenuChoices();
     NumberFormat nf = NumberFormat.getCurrencyInstance();
 %>
