@@ -20,7 +20,7 @@ import service.RestaurantService;
  * @author Drew
  */
 @WebServlet(name = "RestaurantOrderServlet", urlPatterns = {"/RestaurantOrderServlet"})
-public class RestaurantOrderServlet1 extends HttpServlet {
+public class RestaurantOrderServlet extends HttpServlet {
 
     private static final String destination = "/billDetailPage.jsp";
 
