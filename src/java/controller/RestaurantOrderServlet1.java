@@ -13,17 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import service.MenuItem;
-import service.RestaurantCalculator;
 import service.RestaurantService;
 
 /**
  *
  * @author Drew
  */
-@WebServlet(name = "RestaurantOrderServlet1", urlPatterns = {"/RestaurantOrderServlet1"})
+@WebServlet(name = "RestaurantOrderServlet", urlPatterns = {"/RestaurantOrderServlet"})
 public class RestaurantOrderServlet1 extends HttpServlet {
 
-    private static final String destination = "/billDetailPage_1.jsp";
+    private static final String destination = "/billDetailPage.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -60,20 +59,6 @@ public class RestaurantOrderServlet1 extends HttpServlet {
         request.setAttribute("currentOrder", currentOrder);
         
         
-        String steakQty=(String)request.getParameter("Steak");
-        String lobsterQty=(String)request.getParameter("Lobster");
-        String beerQty=(String)request.getParameter("Beer");
-        String saladQty=(String)request.getParameter("Salad");
-        
-        
-        // call method pass in list.  Retrieve bill object
-        RestaurantCalculator rc = new RestaurantCalculator();
-        
-        
-        request.setAttribute("steakPrice",rc.getSteakPrice(steakQty));
-        request.setAttribute("lobsterPrice",rc.getLobsterPrice(lobsterQty));
-        request.setAttribute("beerPrice",rc.getBeerPrice(beerQty));
-        request.setAttribute("saladPrice",rc.getSaladPrice(saladQty));
         request.setAttribute("subtotal",rs.getSubtotal());
         request.setAttribute("tax", rs.getTax());
         request.setAttribute("total", rs.getTotal());

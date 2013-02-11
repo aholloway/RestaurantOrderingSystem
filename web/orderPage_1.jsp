@@ -24,7 +24,7 @@
     <body>
         <h1>Restuarant Order Page</h1>
 
-        <form name="RestaurantOrderForm" action="RestaurantOrderServlet1" 
+        <form name="RestaurantOrderForm" action="RestaurantOrderServlet" 
               method="POST">
             <%-- create a table with item on left and qty on right
                 make item on left a drop down selection and qty a field

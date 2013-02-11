@@ -27,70 +27,41 @@
                 <td>Quantity</td>
                 <td>Price</td>
             </tr>
+            <%
+                Object objCurrentOrder = request.getAttribute("currentOrder");
+
+
+                List<MenuItem> lstCurrentOrder = (List<MenuItem>) objCurrentOrder;
+                for (MenuItem m : lstCurrentOrder) {
+
+            %>
             <tr>
-                <td>Steak</td>
-                <td><%
-                    out.print(request.getParameter("steakQty"));
-                    %></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("steakPrice")));
-                    %></td>
+                <td><%= m.getItemName()%></td>
+                <td><%= m.getItemQuantity()%></td>
+                <td><%= nf.format(m.getItemPrice() * m.getItemQuantity())%></td>
             </tr>
+            <%
+                }
+            %>
             <tr>
-                <td>Lobster</td>
-                <td>
-                    <%
-                    out.print(request.getParameter("lobsterQty"));
-                    %></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("lobsterPrice")));
-                    %></td>
-            </tr>
-            <tr>
-                <td>Beer</td>
-                <td><%
-                    out.print(request.getParameter("beerQty"));
-                    %></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("beerPrice")));
-                    %></td>
-            </tr>
-            <tr>
-                <td>Salad</td>
-                <td><%
-                    out.print(request.getParameter("saladQty"));
-                    %></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("saladPrice")));
-                    %></td>
-            </tr>
-            <tr>
+                <td></td>
                 <td>Subtotal</td>
-                <td></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("subtotal")));
-                    %></td>
+                <td><%=nf.format(request.getAttribute("subtotal"))%></td>
             </tr>
             <tr>
+                <td></td>
                 <td>Tax</td>
-                <td></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("tax")));
-                    %></td>
+                <td><%=nf.format(request.getAttribute("tax"))%></td>
             </tr>
             <tr>
+                <td></td>
                 <td>Total</td>
-                <td></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("total")));
-                    %></td>
+                <td><%=nf.format(request.getAttribute("total"))%></td>
             </tr>
             <tr>
-                <td>Suggested Tip</td>
                 <td></td>
-                <td><%
-                    out.print(nf.format(request.getAttribute("suggestedTip")));
-                    %></td>
+                <td>Suggested Tip</td>
+                <td><%=nf.format(request.getAttribute("suggestedTip"))%></td>
             </tr>
         </table>
 
