@@ -51,7 +51,7 @@ public class RestaurantOrderServlet extends HttpServlet {
             quantity= (String)request.getParameter(m.getItemName());
             if (!quantity.isEmpty()){
                 //I parse double and cast as an int, because 1.0, 2.0 etc
-                // would cause trouble if cast as an int!
+                // would cause trouble if parsed as an int!
                 m.setItemQuantity((int)Double.parseDouble(quantity));
                 add = currentOrder.add(m);
             }
