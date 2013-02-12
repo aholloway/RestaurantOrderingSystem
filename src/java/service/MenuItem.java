@@ -103,6 +103,7 @@ public class MenuItem implements ItemStrategy {
 
     
 
+    @Override
     public String toString() {
         return "MenuItem{" + "id=" + id + ", itemName=" + itemName 
                 + ", itemPrice=" + itemPrice + ", description=" 

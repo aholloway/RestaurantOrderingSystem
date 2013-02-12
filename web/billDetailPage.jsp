@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="service.MenuItem"%>
+<%@page import="service.ItemStrategy"%>
 <%@page import="service.RestaurantService"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,6 +14,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bill Detail Page</title>
+        <style>
+            .center
+            {
+                margin:auto;
+                width:70%;
+            }
+        </style>
     </head>
     <body>
         <%
@@ -31,13 +38,13 @@
                 Object objCurrentOrder = request.getAttribute("currentOrder");
 
 
-                List<MenuItem> lstCurrentOrder = (List<MenuItem>) objCurrentOrder;
-                for (MenuItem m : lstCurrentOrder) {
+                List<ItemStrategy> lstCurrentOrder = (List<ItemStrategy>) objCurrentOrder;
+                for (ItemStrategy m : lstCurrentOrder) {
 
             %>
             <tr>
                 <td><%= m.getItemName()%></td>
-                <td><%= m.getItemQuantity()%></td>
+                <td><div class="center"><%= m.getItemQuantity()%></div></td>
                 <td><%= nf.format(m.getItemPrice() * m.getItemQuantity())%></td>
             </tr>
             <%

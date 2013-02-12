@@ -10,19 +10,19 @@ import service.MenuItem;
  */
 public class MockDatabase implements IOrderDAO {
 
-    private Map<Integer, List<MenuItem>> transactions;
+    private Map<Integer, List<ItemStrategy>> transactions;
     private int currentId;
     private final int BEGINNING_ID;
 
     public MockDatabase() {
-        transactions = new TreeMap<Integer, List<MenuItem>>();
+        transactions = new TreeMap<Integer, List<ItemStrategy>>();
         BEGINNING_ID=10000;
         currentId = BEGINNING_ID;
     }
 
     @Override
-    public List<MenuItem> getCurrentMenuChoices() throws RuntimeException {
-        List menuItemList = new ArrayList<MenuItem>();
+    public List<ItemStrategy> getCurrentMenuChoices() throws RuntimeException {
+        List menuItemList = new ArrayList<ItemStrategy>();
 
         menuItemList.add(new MenuItem("00001", "Steak", 19.95, "Juicy Tender Steak", 0));
         menuItemList.add(new MenuItem("00002", "Lobster", 23.95, "Juicy Tender Lobster", 0));
@@ -33,7 +33,7 @@ public class MockDatabase implements IOrderDAO {
     }
 
     @Override
-    public void saveOrder(List<MenuItem> orderList) throws RuntimeException {
+    public void saveOrder(List<ItemStrategy> orderList) throws RuntimeException {
         
         currentId++;
 
@@ -41,12 +41,12 @@ public class MockDatabase implements IOrderDAO {
     }
 
     @Override
-    public final List<MenuItem> getCurrentTransaction() {
+    public final List<ItemStrategy> getCurrentTransaction() {
         return transactions.get(currentId);
     }
     
     @Override
-    public final List<MenuItem> getTransactionById(int id) {
+    public final List<ItemStrategy> getTransactionById(int id) {
         return transactions.get(id);
     }
     
@@ -60,7 +60,7 @@ public class MockDatabase implements IOrderDAO {
         
          MockDatabase mockDB = new MockDatabase();
 
-        List<MenuItem> menuList = mockDB.getCurrentMenuChoices();
+        List<ItemStrategy> menuList = mockDB.getCurrentMenuChoices();
 
         for (ItemStrategy menuItem : menuList) {
             System.out.println(menuItem);
@@ -82,8 +82,8 @@ public class MockDatabase implements IOrderDAO {
         int currentId= mockDB.getCurrentId();
         System.out.println(currentId);
 
-        List<MenuItem> transaction1 = mockDB.getTransactionById(currentId-1);
-        List<MenuItem> transaction2 = mockDB.getTransactionById(currentId);
+        List<ItemStrategy> transaction1 = mockDB.getTransactionById(currentId-1);
+        List<ItemStrategy> transaction2 = mockDB.getTransactionById(currentId);
 
         System.out.println(transaction1);
         System.out.println(transaction2);

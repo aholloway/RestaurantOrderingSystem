@@ -1,7 +1,7 @@
 package dao;
 
 import java.util.List;
-import service.MenuItem;
+import service.ItemStrategy;
 
 /**
  * The general contract for all versions of OrderDAO classes. Copied from Jim's
@@ -11,13 +11,13 @@ import service.MenuItem;
  */
 public interface IOrderDAO {
 
-    List<MenuItem> getCurrentMenuChoices() throws RuntimeException;
+    List<ItemStrategy> getCurrentMenuChoices() throws RuntimeException;
 
-    void saveOrder(List<MenuItem> orderList) throws RuntimeException;
+    void saveOrder(List<ItemStrategy> orderList) throws RuntimeException;
 
-    public List<MenuItem> getCurrentTransaction();
+    public List<ItemStrategy> getCurrentTransaction();
 
-    public List<MenuItem> getTransactionById(int id);
+    public List<ItemStrategy> getTransactionById(int id);
 
     public int getCurrentId();
 }

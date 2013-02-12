@@ -11,8 +11,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    RestaurantService mockDB = new RestaurantService();
-    List<MenuItem> menuChoices = mockDB.getCurrentMenuChoices();
+    RestaurantService rs = new RestaurantService();
+    List<ItemStrategy> menuChoices = rs.getCurrentMenuChoices();
     NumberFormat nf = NumberFormat.getCurrencyInstance();
 %>
 <!DOCTYPE html>
@@ -39,7 +39,7 @@
                     <td>Qty</td>
                 </tr>
                 <%
-                    for (MenuItem item : menuChoices) {
+                    for (ItemStrategy item : menuChoices) {
                 %>
                 <tr>
                     <td><%= item.getItemName()%></td>
