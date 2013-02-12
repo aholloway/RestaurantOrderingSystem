@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.MenuItem;
+import service.ItemStrategy;
 import service.RestaurantService;
 
 /**
@@ -41,16 +41,18 @@ public class RestaurantOrderServlet extends HttpServlet {
         
         //get all the request parameters
         RestaurantService rs = new RestaurantService();
-        List<MenuItem> currentMenuChoices = rs.getCurrentMenuChoices();
-        List<MenuItem> currentOrder = new ArrayList<MenuItem>();
+        List<ItemStrategy> currentMenuChoices = rs.getCurrentMenuChoices();
+        List<ItemStrategy> currentOrder = new ArrayList<ItemStrategy>();
         String quantity;
         boolean add;
         
          //get quantities from the request and put into the current order
-        for (MenuItem m:currentMenuChoices){
+        for (ItemStrategy m:currentMenuChoices){
             quantity= (String)request.getParameter(m.getItemName());
             if (!quantity.isEmpty()){
-                m.setItemQuantity(Integer.parseInt(quantity));
+                //I parse double and cast as an int, because 1.0, 2.0 etc
+                // would cause trouble if cast as an int!
+                m.setItemQuantity((int)Double.parseDouble(quantity));
                 add = currentOrder.add(m);
             }
         }
@@ -71,6 +73,8 @@ public class RestaurantOrderServlet extends HttpServlet {
         dispatcher.forward(request, response);
 
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
