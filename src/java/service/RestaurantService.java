@@ -26,7 +26,6 @@ public class RestaurantService {
     }
 
     public void saveOrder(List<ItemStrategy> orderList) throws RuntimeException {
-
         mockDB.saveOrder(orderList);
     }
 
